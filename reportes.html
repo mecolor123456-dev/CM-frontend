@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reportes de Ventas</title>
+</head>
+<body>
+<h1>Reporte Mensual</h1>
+<button id="exportar">Exportar a Excel</button>
+<table id="tablaReporte" border="1"></table>
+
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script type="module">
+const API_URL = 'https://punto-venta-backend.onrender.com';
+
+async function cargarReporte() {
+  const res = await fetch(`${API_URL}/api/reportes/mensual`);
+  const datos = await res.json();
+  const tabla = document.getElementById("tablaReporte");
+  tabla.innerHTML = datos.map(d => `
+    <tr>
+      <td>${d.id}</td>
+      <td>${d.total}</td>
+      <td>${new Date(d.fecha).toLocaleString()}</td>
+    </tr>
+  `).join("");
+}
+
+document.getElementById("exportar").addEventListener("click", () => {
+  const tabla = document.getElementById("tablaReporte");
+  const wb = XLSX.utils.table_to_book(tabla);
+  XLSX.writeFile(wb, "reporte.xlsx");
+});
+
+cargarReporte();
+</script>
+</body>
+</html>
 

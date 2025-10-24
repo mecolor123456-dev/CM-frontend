@@ -1,45 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Admin - Productos</title>
+<meta charset="UTF-8">
+<title>Admin - Punto de Venta</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="img/logo.png" type="image/png">
 </head>
 <body>
-<header><h1>Admin — Productos</h1><a href="index.html" class="btn small">Volver</a></header>
-<main class="admin-grid">
-  <section class="card">
-    <h2>Nuevo / Editar producto</h2>
-    <form id="productForm">
-      <input id="p-id" type="hidden">
-      <label>Nombre</label>
-      <input id="p-name" required>
-      <label>Precio</label>
-      <input id="p-price" type="number" step="0.01" required>
-      <label>Categoría</label>
-      <select id="p-category">
-        <option value="bebidas">Bebidas</option>
-        <option value="alimentos">Alimentos</option>
-        <option value="insumos">Insumos</option>
-      </select>
-      <label>Imagen</label>
-      <input id="p-image" type="file" accept="image/*">
-      <label>Personalizaciones (separadas por comas)</label>
-      <input id="p-customs" placeholder="Leche, Avena, Extra shot">
-      <div style="margin-top:12px">
-        <button type="submit" class="btn">Guardar</button>
-        <button type="button" id="btn-clear-form" class="btn outline">Limpiar</button>
-      </div>
-    </form>
-  </section>
+<h1>Panel Admin</h1>
 
-  <section class="card">
-    <h2>Lista de productos</h2>
-    <div id="products-list" class="list"></div>
-  </section>
-</main>
+<form id="formAgregarProducto">
+  <input type="text" id="nombre" placeholder="Nombre" required>
+  <input type="number" id="precio" placeholder="Precio" required>
+  <input type="text" id="categoria" placeholder="Categoría" required>
+  <input type="text" id="personalizaciones" placeholder="Opciones separadas por coma">
+  <input type="file" id="imagen">
+  <button type="submit">Agregar / Editar</button>
+</form>
+
+<div id="productosAdmin"></div>
 
 <script src="js/api.js"></script>
 <script src="js/admin.js"></script>

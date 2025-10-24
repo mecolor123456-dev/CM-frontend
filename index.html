@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Punto de Venta - Cafetería</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>☕ Punto de Venta - Cafetería</h1>
+  <div class="header-actions">
+    <a href="login.html" class="btn small">Iniciar sesión</a>
+    <a href="admin.html" class="btn small">Admin</a>
+  </div>
+</header>
+
+<main>
+  <section id="productos-panel">
+    <div id="tabs" class="tabs">
+      <button data-cat="bebidas" class="tab active">Bebidas</button>
+      <button data-cat="alimentos" class="tab">Alimentos</button>
+      <button data-cat="insumos" class="tab">Insumos</button>
+    </div>
+
+    <div id="productos" class="grid"></div>
+  </section>
+
+  <aside id="carrito-panel">
+    <h2>🛒 Carrito</h2>
+    <ul id="carrito-list"></ul>
+    <div class="resumen">
+      <div class="row"><strong>Total:</strong> $<span id="total">0.00</span></div>
+      <input id="cliente" placeholder="Nombre del cliente" />
+      <div class="actions">
+        <button id="btn-finalizar" class="btn">Finalizar venta</button>
+        <button id="btn-clear" class="btn outline">Limpiar</button>
+      </div>
+      <hr>
+      <button onclick="location.href='admin.html'" class="btn small full">Ir a Admin</button>
+    </div>
+  </aside>
+</main>
+
+<!-- modal de personalización -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modal-title"></h3>
+    <div id="modal-customs"></div>
+    <div class="modal-actions">
+      <button id="modal-add" class="btn">Agregar al carrito</button>
+      <button id="modal-close" class="btn outline">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

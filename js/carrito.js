@@ -1,7 +1,7 @@
 let carrito = [];
 
-export function agregarAlCarrito(producto) {
-  const p = {...producto, cantidad: 1, seleccionadas: producto.personalizaciones || []};
+function agregarAlCarrito(producto) {
+  const p = { ...producto, cantidad: 1, seleccionadas: producto.personalizaciones || [] };
   carrito.push(p);
   actualizarCarrito();
 }
@@ -11,7 +11,7 @@ function actualizarCarrito() {
   contenedor.innerHTML = carrito.map((p,i) => `
     <div>
       <strong>${p.nombre}</strong> ($${p.precio}) 
-      <button onclick="quitarDelCarrito(${i})">X</button>
+      <button onclick='quitarDelCarrito(${i})'>X</button>
       <p>Personalizaciones: ${p.seleccionadas.join(', ')}</p>
     </div>
   `).join("");
@@ -20,12 +20,17 @@ function actualizarCarrito() {
   document.getElementById("total").innerText = total;
 }
 
-window.quitarDelCarrito = function(index) {
+function quitarDelCarrito(index) {
   carrito.splice(index,1);
   actualizarCarrito();
 }
 
-window.vaciarCarrito = function() {
+function vaciarCarrito() {
   carrito = [];
   actualizarCarrito();
 }
+
+// Hacer funciones accesibles desde HTML
+window.agregarAlCarrito = agregarAlCarrito;
+window.quitarDelCarrito = quitarDelCarrito;
+window.vaciarCarrito = vaciarCarrito;

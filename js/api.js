@@ -9,6 +9,7 @@ async function obtenerProductos() {
   return await res.json();
 }
 
+// Agregar producto al backend
 async function agregarProductoBackend(producto) {
   const res = await fetch(`${API_URL}/api/productos`, {
     method: "POST",
@@ -18,6 +19,17 @@ async function agregarProductoBackend(producto) {
   return await res.json();
 }
 
+// Editar producto
+async function editarProductoBackend(id, producto) {
+  const res = await fetch(`${API_URL}/api/productos/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(producto)
+  });
+  return await res.json();
+}
+
+// Eliminar producto
 async function eliminarProductoBackend(id) {
   const res = await fetch(`${API_URL}/api/productos/${id}`, { method: "DELETE" });
   return await res.json();

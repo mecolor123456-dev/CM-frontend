@@ -1,13 +1,14 @@
-async function cargarProductosAdmin() {
-  const productos = await obtenerProductos();
-  const cont = document.getElementById("productosAdmin");
-  cont.innerHTML = productos.map(p => `
+async function loadProductsList() {
+  const products = await obtenerProductos(); // ← función correcta del api.js
+  const contenedor = document.getElementById("productosAdmin");
+  contenedor.innerHTML = products.map(p => `
     <div>
       <strong>${p.nombre}</strong> ($${p.precio}) - ${p.categoria}
       <button onclick='eliminarProducto(${p.id})'>Eliminar</button>
     </div>
   `).join("");
 }
+
 
 async function agregarProductoAdmin() {
   const nombre = document.getElementById("nombre").value;

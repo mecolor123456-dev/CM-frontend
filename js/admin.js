@@ -1,7 +1,8 @@
+// Cargar productos en admin
 async function cargarProductosAdmin() {
   const productos = await obtenerProductos();
-  const contenedor = document.getElementById("productosAdmin");
-  contenedor.innerHTML = productos.map(p => `
+  const cont = document.getElementById("productosAdmin");
+  cont.innerHTML = productos.map(p => `
     <div>
       <strong>${p.nombre}</strong> ($${p.precio}) - ${p.categoria}
       <button onclick='eliminarProducto(${p.id})'>Eliminar</button>
@@ -10,7 +11,7 @@ async function cargarProductosAdmin() {
   `).join("");
 }
 
-// Agregar producto desde el admin
+// Agregar producto
 async function agregarProductoAdmin() {
   const nombre = document.getElementById("nombre").value;
   const precio = parseFloat(document.getElementById("precio").value);
@@ -26,15 +27,16 @@ async function agregarProductoAdmin() {
 
   await agregarProductoBackend({ nombre, precio, categoria, personalizaciones, imagen: urlImagen });
   cargarProductosAdmin();
+  document.getElementById("formAgregarProducto").reset();
 }
 
-// Eliminar producto desde el admin
+// Eliminar producto
 async function eliminarProducto(id) {
   await eliminarProductoBackend(id);
   cargarProductosAdmin();
 }
 
-// Mostrar formulario de edición con los valores actuales
+// Mostrar formulario de edición
 function mostrarEditarProducto(id, nombre, precio, categoria, personalizaciones) {
   document.getElementById("nombre").value = nombre;
   document.getElementById("precio").value = precio;
@@ -46,7 +48,7 @@ function mostrarEditarProducto(id, nombre, precio, categoria, personalizaciones)
   };
 }
 
-// Editar producto desde el admin
+// Editar producto
 async function editarProductoAdmin(id) {
   const nombre = document.getElementById("nombre").value;
   const precio = parseFloat(document.getElementById("precio").value);
@@ -61,9 +63,8 @@ async function editarProductoAdmin(id) {
   }
 
   await editarProductoBackend(id, { nombre, precio, categoria, personalizaciones, imagen: urlImagen });
-  // Limpiar formulario y recargar productos
-  document.getElementById("formAgregarProducto").reset();
   cargarProductosAdmin();
+  document.getElementById("formAgregarProducto").reset();
 }
 
 // Listener para agregar producto nuevo
@@ -72,7 +73,6 @@ document.getElementById("formAgregarProducto").addEventListener("submit", async 
   await agregarProductoAdmin();
 });
 
-// Inicializar admin
 window.onload = cargarProductosAdmin;
 window.eliminarProducto = eliminarProducto;
 window.mostrarEditarProducto = mostrarEditarProducto;

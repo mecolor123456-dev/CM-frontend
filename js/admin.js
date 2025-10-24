@@ -1,7 +1,7 @@
 async function cargarProductosAdmin() {
   const productos = await obtenerProductos();
-  const contenedor = document.getElementById("productosAdmin");
-  contenedor.innerHTML = productos.map(p => `
+  const cont = document.getElementById("productosAdmin");
+  cont.innerHTML = productos.map(p => `
     <div>
       <strong>${p.nombre}</strong> ($${p.precio}) - ${p.categoria}
       <button onclick='eliminarProducto(${p.id})'>Eliminar</button>
@@ -13,18 +13,30 @@ async function agregarProductoAdmin() {
   const nombre = document.getElementById("nombre").value;
   const precio = parseFloat(document.getElementById("precio").value);
   const categoria = document.getElementById("categoria").value;
-  const personalizaciones = document.getElementById("personalizaciones").value.split(',');
+  const personalizaciones = document.getElementById("personalizaciones").value.split(",");
+  const imagenFile = document.getElementById("imagen").files[0];
+  let urlImagen = "";
 
-  await agregarProductoBackend({ nombre, precio, categoria, personalizaciones });
+  if(imagenFile){
+    const res = await subirImagen(imagenFile);
+    urlImagen = API_URL + res.url;
+  }
+
+  await agregarProductoBackend({ nombre, precio, categoria, personalizaciones, imagen: urlImagen });
   cargarProductosAdmin();
 }
 
-async function eliminarProducto(id) {
+async function eliminarProducto(id){
   await eliminarProductoBackend(id);
   cargarProductosAdmin();
 }
 
+document.getElementById("formAgregarProducto").addEventListener("submit", e=>{
+  e.preventDefault();
+  agregarProductoAdmin();
+});
+
 window.cargarProductosAdmin = cargarProductosAdmin;
-window.agregarProductoAdmin = agregarProductoAdmin;
 window.eliminarProducto = eliminarProducto;
+
 window.onload = cargarProductosAdmin;

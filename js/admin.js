@@ -1,4 +1,3 @@
-// Cargar productos en admin
 async function cargarProductosAdmin() {
   const productos = await obtenerProductos();
   const cont = document.getElementById("productosAdmin");
@@ -11,7 +10,6 @@ async function cargarProductosAdmin() {
   `).join("");
 }
 
-// Agregar producto
 async function agregarProductoAdmin() {
   const nombre = document.getElementById("nombre").value;
   const precio = parseFloat(document.getElementById("precio").value);
@@ -30,13 +28,11 @@ async function agregarProductoAdmin() {
   document.getElementById("formAgregarProducto").reset();
 }
 
-// Eliminar producto
 async function eliminarProducto(id) {
   await eliminarProductoBackend(id);
   cargarProductosAdmin();
 }
 
-// Mostrar formulario de edición
 function mostrarEditarProducto(id, nombre, precio, categoria, personalizaciones) {
   document.getElementById("nombre").value = nombre;
   document.getElementById("precio").value = precio;
@@ -48,7 +44,6 @@ function mostrarEditarProducto(id, nombre, precio, categoria, personalizaciones)
   };
 }
 
-// Editar producto
 async function editarProductoAdmin(id) {
   const nombre = document.getElementById("nombre").value;
   const precio = parseFloat(document.getElementById("precio").value);
@@ -67,7 +62,6 @@ async function editarProductoAdmin(id) {
   document.getElementById("formAgregarProducto").reset();
 }
 
-// Listener para agregar producto nuevo
 document.getElementById("formAgregarProducto").addEventListener("submit", async (e) => {
   e.preventDefault();
   await agregarProductoAdmin();

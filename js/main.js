@@ -11,6 +11,7 @@ function mostrarCategoria(categoria) {
   contenedor.innerHTML = productos.map(p => `
     <div class="producto">
       <h3>${p.nombre}</h3>
+      <img src="${p.imagen}" width="100">
       <p>Precio: $${p.precio}</p>
       ${p.personalizaciones ? `<p>Opciones: ${p.personalizaciones.join(', ')}</p>` : ''}
       <button onclick='agregarAlCarrito(${JSON.stringify(p)})'>Agregar</button>

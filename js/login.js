@@ -1,15 +1,22 @@
-// login.js - demo simple (no JWT). Assumes backend /api/login returns user object.
-document.getElementById('btn-login').onclick = async ()=>{
-  const u = document.getElementById('u-username').value;
-  const p = document.getElementById('u-password').value;
-  const res = await apiPOST('/api/login', { username: u, password: p });
-  if(res.ok){
-    const user = await res.json();
-    localStorage.setItem('pv_user', JSON.stringify(user));
-    alert('Bienvenido ' + user.username);
-    window.location.href = 'index.html';
-  } else {
-    alert('Credenciales inválidas');
+async function login() {
+  const usuario = document.getElementById("usuario").value;
+  const contrasena = document.getElementById("contrasena").value;
+
+  try {
+    const user = await loginUsuario(usuario, contrasena);
+    if(user.error) {
+      alert(user.error);
+    } else {
+      localStorage.setItem("usuario", JSON.stringify(user));
+      alert(`Bienvenido, ${user.nombre}`);
+      window.location.href = "index.html";
+    }
+  } catch(err) {
+    alert("Error de conexión con el servidor");
   }
-};
-document.getElementById('btn-cancel').onclick = ()=> window.location.href='index.html';g
+}
+
+document.getElementById("loginForm").addEventListener("submit", e => {
+  e.preventDefault();
+  login();
+});

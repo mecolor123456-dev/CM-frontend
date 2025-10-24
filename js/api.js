@@ -6,11 +6,9 @@ const API_URL = 'https://cm-backend-gsnp.onrender.com'; <-- PON AQUÍ la URL de 
 // Obtener todos los productos
 async function obtenerProductos() {
   const res = await fetch(`${API_URL}/api/productos`);
-  const data = await res.json();
-  return data;
+  return await res.json();
 }
 
-// Agregar producto al backend (solo para admin)
 async function agregarProductoBackend(producto) {
   const res = await fetch(`${API_URL}/api/productos`, {
     method: "POST",
@@ -20,26 +18,18 @@ async function agregarProductoBackend(producto) {
   return await res.json();
 }
 
-// Eliminar producto del backend
 async function eliminarProductoBackend(id) {
-  const res = await fetch(`${API_URL}/api/productos/${id}`, {
-    method: "DELETE"
-  });
+  const res = await fetch(`${API_URL}/api/productos/${id}`, { method: "DELETE" });
   return await res.json();
 }
 
-// Login de usuario
-async function loginUsuario(usuario, contrasena) {
-  const res = await fetch(`${API_URL}/api/usuarios/login`, {
+// Subir imagen al backend
+async function subirImagen(file) {
+  const formData = new FormData();
+  formData.append("imagen", file);
+  const res = await fetch(`${API_URL}/api/productos/upload`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ usuario, contrasena })
+    body: formData
   });
-  return await res.json();
-}
-
-// Obtener reporte
-async function obtenerReporte(tipo = "mensual") {
-  const res = await fetch(`${API_URL}/api/reportes/${tipo}`);
   return await res.json();
 }
